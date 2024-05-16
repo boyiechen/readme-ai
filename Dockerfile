@@ -26,8 +26,11 @@ USER tempuser
 # Add the directory where pip installs user scripts to the PATH
 ENV PATH=/home/tempuser/.local/bin:$PATH
 
-# Install the readmeai package from PyPI with a pinned version
-RUN pip install --no-cache-dir --user --upgrade readmeai
+# Copy the local readmeai source code into the container
+COPY . /app
+
+# Install the readmeai package from the local source
+RUN pip install --no-cache-dir --user --upgrade .
 
 # Set the command to run the CLI
 ENTRYPOINT ["readmeai"]

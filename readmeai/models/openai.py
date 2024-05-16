@@ -3,6 +3,7 @@ OpenAI API LLM handler implementation, with Ollama support.
 """
 
 import os
+import asyncio  # Import asyncio
 from typing import List, Tuple
 
 import aiohttp
@@ -98,6 +99,8 @@ class OpenAIHandler(BaseModelHandler):
                 response = await response.json()
                 text = response["choices"][0]["message"]["content"]
                 self._logger.info(f"Response for '{index}':\n{text}")
+                # Adding a 5-second delay
+                await asyncio.sleep(5)
                 return index, clean_response(index, text)
 
         except (
